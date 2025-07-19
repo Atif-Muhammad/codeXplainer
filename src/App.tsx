@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRef, useState } from "react";
 import OutputModal from "./components/OutputModal";
+import ErrorTicker from "./components/tickers/ErrorTicker"
 
 
 function App() {
@@ -9,10 +10,10 @@ function App() {
   const [loading, setLoading] = useState<boolean>(false);
 
   const [response, setResponse] = useState<any>(null);
-  const [showModal, setShowModal] = useState<boolean>(false); 
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [features, setFeatures] = useState([
+  const [features] = useState([
     {
       id: 1,
       icon: (
@@ -44,7 +45,7 @@ function App() {
     setLoading(true);
     // console.log("Code submitted:", codeRef.current?.value);
     try {
-      const response = await axios.post(import.meta.env.VITE_N8N, {data: codeRef.current?.value});
+      const response = await axios.post(import.meta.env.VITE_N8N, { data: codeRef.current?.value });
       if (response.status === 200) {
         // console.log("Response from server:", response.data.output?.replace(/```(?:json)?\n?([\s\S]*?)\n?```/g, '$1').trim());
         const cleanedResponse = response.data.output?.replace(/```(?:json)?\n?([\s\S]*?)\n?```/g, '$1').trim();
@@ -64,6 +65,10 @@ function App() {
     setLoading(false);
   }
 
+
+  if (error) return (
+    <ErrorTicker error={error} /> 
+  )
   return (
     <div className="w-screen min-h-screen overflow-x-hidden overflow-y-auto relative bg-[url(./assets/bg.jpeg)] bg-cover bg-center bg-no-repeat flex flex-col items-center justify-start ">
 

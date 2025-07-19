@@ -1,5 +1,4 @@
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+
 import { useRef } from "react";
 
 
@@ -16,9 +15,9 @@ export default function OutputModal({ showModal, setShowModal, response }: Outpu
     const containerRef = useRef<HTMLDivElement>(null);
 
 
-    const handleExportPDF = async () => {
+    // const handleExportPDF = async () => {
 
-    };
+    // };
 
 
 
